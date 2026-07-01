@@ -6,6 +6,7 @@ const required = [
   'LLM_API_KEY',
   'VAPI_API_KEY',
   'VAPI_WEBHOOK_SECRET',
+  'BREVO_API_KEY',
 ];
 
 for (const key of required) {
@@ -30,4 +31,7 @@ export const env = {
   nodeEnv: process.env.NODE_ENV || 'development',
   backendUrl: process.env.BACKEND_URL || 'http://localhost:4000',
   frontendUrl: process.env.FRONTEND_URL || 'http://localhost:5173',
+  brevoApiKey: process.env.BREVO_API_KEY,
+  brevoSenderEmail: process.env.EMAIL_FROM || 'no-reply@interviewai.com',
+  brevoSenderName: process.env.BREVO_SENDER_NAME || 'InterviewAI',
 };

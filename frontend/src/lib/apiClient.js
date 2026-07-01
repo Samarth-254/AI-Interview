@@ -19,6 +19,7 @@ const request = async (method, path, body = undefined) => {
   const token = getToken();
   const headers = {
     'Content-Type': 'application/json',
+    'ngrok-skip-browser-warning': 'true',
   };
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;

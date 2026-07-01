@@ -11,6 +11,7 @@ import InterviewSessionPage from './pages/InterviewSessionPage';
 import DashboardPage from './pages/DashboardPage';
 import FeedbackReportPage from './pages/FeedbackReportPage';
 import ProfilePage from './pages/ProfilePage';
+import ResetPasswordPage from './pages/ResetPasswordPage';
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -51,6 +52,7 @@ const App = () => {
           {/* Public-only routes — redirect to dashboard if already logged in */}
           <Route path="/signup" element={<PublicOnlyRoute><SignupPage /></PublicOnlyRoute>} />
           <Route path="/login" element={<PublicOnlyRoute><LoginPage /></PublicOnlyRoute>} />
+          <Route path="/reset-password" element={<PublicOnlyRoute><ResetPasswordPage /></PublicOnlyRoute>} />
 
           {/* Protected routes */}
           <Route path="/onboarding" element={<ProtectedRoute><OnboardingPage /></ProtectedRoute>} />

@@ -4,7 +4,7 @@
  */
 import 'dotenv/config';
 import pg from 'pg';
-import { readFileSync } from 'fs';
+import { readFileSync, readdirSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -17,13 +17,22 @@ const client = new Client({
   ssl: { rejectUnauthorized: false },
 });
 
-const sql = readFileSync(join(__dirname, 'migrations', '001_init.sql'), 'utf8');
-
 try {
   await client.connect();
   console.log('[migrate] Connected to database');
-  await client.query(sql);
-  console.log('[migrate] ✅ Migration applied successfully');
+
+  const migrationsDir = join(__dirname, 'migrations');
+  const files = readdirSync(migrationsDir)
+    .filter((f) => f.endsWith('.sql'))
+    .sort();
+
+  for (const file of files) {
+    console.log(`[migrate] Applying migration: ${file}`);
+    const sql = readFileSync(join(migrationsDir, file), 'utf8');
+    await client.query(sql);
+  }
+
+  console.log('[migrate] ✅ All migrations applied successfully');
 } catch (err) {
   console.error('[migrate] ❌ Migration failed:', err.message);
   process.exit(1);

@@ -41,4 +41,39 @@ export const userModel = {
     );
     return result.rows[0] || null;
   },
+
+  async updateResetToken(id, token, expiresAt) {
+    const result = await pool.query(
+      `UPDATE users
+       SET reset_password_token = $1,
+           reset_password_expires_at = $2
+       WHERE id = $3
+       RETURNING id, email`,
+      [token, expiresAt, id]
+    );
+    return result.rows[0] || null;
+  },
+
+  async findByResetToken(token) {
+    const result = await pool.query(
+      `SELECT id, name, email, password_hash, reset_password_expires_at
+       FROM users
+       WHERE reset_password_token = $1`,
+      [token]
+    );
+    return result.rows[0] || null;
+  },
+
+  async updatePassword(id, passwordHash) {
+    const result = await pool.query(
+      `UPDATE users
+       SET password_hash = $1,
+           reset_password_token = NULL,
+           reset_password_expires_at = NULL
+       WHERE id = $2
+       RETURNING id, name, email`,
+      [passwordHash, id]
+    );
+    return result.rows[0] || null;
+  },
 };
