@@ -8,6 +8,9 @@ export const pool = new Pool({
   max: 10,
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 10000,
+  ssl: env.databaseUrl.includes('sslmode=') || env.databaseUrl.includes('neon.tech')
+    ? { rejectUnauthorized: false }
+    : false,
 });
 
 pool.on('error', (err) => {
