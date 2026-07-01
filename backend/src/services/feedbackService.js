@@ -38,6 +38,11 @@ Role: ${user?.job_role || 'Not specified'}
 Experience: ${user?.experience_level || 'Not specified'}
 Interview Type: ${session.interview_type}
 
+TRANSCRIPT & IDENTITY GROUND RULES:
+1. Treat the "Candidate", "Role", and "Experience" fields above as absolute ground truth. If the transcript text records their name, role, or level incorrectly, ignore the transcript's errors and adhere strictly to the ground truth details.
+2. The transcript is generated from audio and may contain transcription errors, misheard words, or technical terms out of context (e.g. "BTEC" instead of "BTech", or mangled framework/library names). You must be intelligent and lenient: infer the correct/intended words and technologies from the context of the role and experience level, and base your feedback and score on those inferred correct terms.
+3. NEVER mention in the feedback that you corrected any words, found synonyms, or worked around transcription errors. Perform this alignment silently and seamlessly.
+
 Analyze the full transcript and return a JSON object with this EXACT structure:
 {
   "overall_score": <number 0-10, one decimal place>,
