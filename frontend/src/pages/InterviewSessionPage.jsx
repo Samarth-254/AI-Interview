@@ -243,33 +243,7 @@ const InterviewSessionPage = () => {
       vapiClient.on('error', (err) => {
         console.error('[Vapi error]', err);
 
-        // Robust type-safe check to prevent crashing on object types
-        const errorMsgStr = typeof err?.errorMsg === 'string' ? err.errorMsg : '';
-        const errorTypeStr = typeof err?.error?.type === 'string' ? err.error.type : '';
-        const errorMsgInnerStr = typeof err?.error?.msg === 'string' ? err.error.msg : '';
-        const mainMsgStr = typeof err?.message === 'string' ? err.message : '';
-
-        const isEjection =
-          errorTypeStr === 'ejected' ||
-          errorMsgStr.includes('Meeting has ended') ||
-          errorMsgInnerStr.includes('Meeting has ended') ||
-          mainMsgStr.includes('Meeting has ended');
-
-        if (isEjection) {
-          console.log('[InterviewSessionPage] Ignored Vapi ejection warning as it is a natural call wrap-up.');
-          return;
-        }
-
-        let msg = 'Voice connection error';
-        if (typeof err?.message === 'string') {
-          msg = err.message;
-        } else if (typeof err?.error?.message === 'string') {
-          msg = err.error.message;
-        } else if (typeof err?.errorMsg === 'string') {
-          msg = err.errorMsg;
-        }
-
-        setError(`Voice error: ${msg}. Please try again.`);
+        setError('Meeting ended due to some errors. Please try again.');
         setPhase('setup');
         callStarted.current = false;
         // PATCH the session as abandoned since the call ended unexpectedly

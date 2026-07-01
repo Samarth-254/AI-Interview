@@ -155,7 +155,7 @@ Estimated cost breakdown for a standard 15-minute voice interview session:
 
 ### 4. Language Model (Gemini Fallback Cascade)
 * **Pricing**: Input: $0.075 / 1M tokens | Output: $0.30 / 1M tokens
-* **Assumption**: 15 conversation turns. Average prompt length grows to 4,000 tokens (transcript context). Average output length is 100 tokens per question. Models utilized in descending fallback priority: `gemini-3.5-flash`, `gemini-3.1-flash-lite`, `gemini-2.5-flash`, `gemini-2.5-flash-lite`, `gemini-2.0-flash`, and `gemini-2.0-flash-lite`.
+* **Assumption**: 15 conversation turns. Average prompt length grows to 4,000 tokens (transcript context). Average output length is 100 tokens per question. Models utilized in descending fallback priority: `gemini-3.1-flash-lite`, `gemini-2.5-flash-lite`, `gemini-3.5-flash`, and `gemini-2.5-flash`.
   - **Input Math**: 15 turns × 4,000 tokens = 60,000 tokens = $0.0045
   - **Output Math**: 15 turns × 100 tokens = 1,500 tokens = $0.00045
 * **Cost**: **$0.00495** (approx. $0.005)
