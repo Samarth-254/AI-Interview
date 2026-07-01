@@ -3,7 +3,15 @@
  * All frontend API calls go through this module.
  */
 
-const BASE_URL = '/api';
+const getBackendUrl = () => {
+  const envUrl = import.meta.env.VITE_BACKEND_URL;
+  if (!envUrl) return '/api'; // fallback to proxy for local development
+  // Ensure the base URL ends with /api for all endpoints
+  return envUrl.endsWith('/api') ? envUrl : `${envUrl.replace(/\/$/, '')}/api`;
+};
+
+export const BACKEND_URL = getBackendUrl();
+const BASE_URL = BACKEND_URL;
 
 const getToken = () => localStorage.getItem('auth_token');
 

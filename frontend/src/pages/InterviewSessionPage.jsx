@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { apiClient } from '../lib/apiClient';
+import { apiClient, BACKEND_URL } from '../lib/apiClient';
 import { vapiClient } from '../lib/vapiClient';
 import VoiceCallControls from '../components/VoiceCallControls';
 import { Mic, CheckCircle, Lightbulb, RefreshCw, Target, AlertCircle, Loader, Clock } from 'lucide-react';
@@ -103,8 +103,8 @@ const InterviewSessionPage = () => {
       const sid = sessionIdRef.current;
       const token = localStorage.getItem('auth_token');
       if (!sid || !token) return;
-      // sendBeacon cannot set custom headers, so we encode the token in the URL
-      const url = `/api/sessions/${sid}/abandon?_token=${encodeURIComponent(token)}`;
+      // Use BACKEND_URL for sendBeacon
+      const url = `${BACKEND_URL}/sessions/${sid}/abandon?_token=${encodeURIComponent(token)}`;
       navigator.sendBeacon(url);
     };
     window.addEventListener('beforeunload', handleBeforeUnload);
