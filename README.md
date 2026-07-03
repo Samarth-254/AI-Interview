@@ -1,6 +1,6 @@
 # InterviewAI — AI Mock Interview Platform
 
-A production-grade, stateful AI Mock Interview Platform featuring real-time voice conversations powered by LangGraph, Vapi, and AssemblyAI, with automated feedback reporting and performance diagnostics.
+A production-grade, stateful AI Mock Interview Platform featuring real-time voice conversations powered by LangGraph, Vapi, and Deepgram Nova-3 (en-IN), with automated feedback reporting and performance diagnostics.
 
 ---
 
@@ -20,7 +20,7 @@ A production-grade, stateful AI Mock Interview Platform featuring real-time voic
 | **Database** | PostgreSQL (raw `pg` driver) |
 | **Auth** | JWT + bcrypt (Email + Password, no OAuth) |
 | **Voice Interface** | Vapi (Custom LLM mode) |
-| **STT (Speech-to-Text)** | AssemblyAI Universal-Streaming |
+| **STT (Speech-to-Text)** | Deepgram Nova-3 (en-IN) |
 | **Transactional Email** | Brevo (formerly Sendinblue) SMTP for password resets |
 
 ---
@@ -130,7 +130,7 @@ npm run dev --prefix backend & npm run dev --prefix frontend
 |---|---|---|
 | `VITE_VAPI_PUBLIC_KEY` | Vapi public token for client initialization | [Vapi Dashboard Settings](https://dashboard.vapi.ai) |
 
-*Note: AssemblyAI STT is configured directly within the Vapi Dashboard under **Providers -> Speech-To-Text**, meaning no local `ASSEMBLYAI_API_KEY` needs to be defined in local env files.*
+*Note: Deepgram Nova-3 STT is configured directly within the Vapi Dashboard under **Providers -> Speech-To-Text**, meaning no local `DEEPGRAM_API_KEY` needs to be defined in local env files.*
 
 ---
 
@@ -143,10 +143,10 @@ Estimated cost breakdown for a standard 15-minute voice interview session:
 * **Math**: $0.05 × 15 minutes
 * **Cost**: **$0.75**
 
-### 2. Speech-to-Text (AssemblyAI Universal-Streaming)
-* **Pricing**: $0.15 / hour ($0.0025 / minute)
-* **Math**: $0.0025 × 15 minutes
-* **Cost**: **$0.0375**
+### 2. Speech-to-Text (Deepgram Nova-3 en-IN)
+* **Pricing**: ~$0.0043 / minute
+* **Math**: $0.0043 × 15 minutes
+* **Cost**: **$0.0645**
 
 ### 3. Text-to-Speech (ElevenLabs via Vapi)
 * **Pricing**: ~$0.015 / minute
@@ -160,7 +160,7 @@ Estimated cost breakdown for a standard 15-minute voice interview session:
   - **Output Math**: 15 turns × 100 tokens = 1,500 tokens = $0.00045
 * **Cost**: **$0.00495** (approx. $0.005)
 
-### Total Estimated Session Cost: **~$1.02**
+### Total Estimated Session Cost: **~$1.05**
 
 ---
 

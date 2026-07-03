@@ -47,7 +47,7 @@ export const topicBanks = {
 export const defaultState = {
   sessionId: '', interviewType: 'behavioral',
   candidateProfile: { name: '', jobRole: '', experienceLevel: 'mid' },
-  transcript: [], currentTopic: '', difficultyLevel: 2, topicsCovered: [],
+  transcript: [], currentTopic: '', difficultyLevel: 1, topicsCovered: [],
   lastAnswerQuality: null, shouldClose: false, nextInstruction: null,
   turnCount: 0, startedAt: null, flaggedClaims: [], surpriseUsed: false,
 };

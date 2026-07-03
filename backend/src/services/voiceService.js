@@ -39,26 +39,37 @@ export const voiceService = {
       },
       transcriber: {
         provider: 'deepgram',
-        model: 'nova-2',
-        language: 'en-US',
+        model: 'nova-3',
+        language: 'en-IN',
         keywords: [
+          'Arjun:3',
           ...(candidateName
             ? candidateName
-                .split(/\s+/)
-                .map((word) => word.replace(/[^a-zA-Z]/g, ''))
-                .filter((word) => word.length > 0)
-                .map((word) => `${word}:3`)
+              .split(/\s+/)
+              .map((word) => word.replace(/[^a-zA-Z]/g, ''))
+              .filter((word) => word.length > 0)
+              .map((word) => `${word}:3`)
             : []),
-          'Samarth:3',
-          'Nagpal:3',
-          'Arjun:3',
-          'SDE:2',
-          'API:2',
-          'microservices:2',
-          'scalability:2',
-          'database:2',
-          'React:2',
-          'SQL:2',
+          ...(jobRole
+            ? jobRole
+              .split(/[^a-zA-Z]+/)
+              .filter((word) => word.length > 1)
+              .map((word) => `${word}:2`)
+            : []),
+          ...(interviewType
+            ? interviewType
+              .split(/[\s_]+/)
+              .map((word) => word.replace(/[^a-zA-Z]/g, ''))
+              .filter((word) => word.length > 1)
+              .map((word) => `${word}:2`)
+            : []),
+          ...(experienceLevel
+            ? experienceLevel
+              .split(/[\s_]+/)
+              .map((word) => word.replace(/[^a-zA-Z]/g, ''))
+              .filter((word) => word.length > 1)
+              .map((word) => `${word}:2`)
+            : []),
         ],
       },
       // Give Vapi a concrete opening line so it speaks first without needing to call
